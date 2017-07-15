@@ -4,7 +4,7 @@ var stockData = [];
 
 //if there are already pasted Old URLs, show the hint with first URL
 function subStrCustom() {
-  var oldLines =  $('#oldUrl').val().split(/\n/);
+  var oldLines = $('#oldUrl').val().split(/\n/);
   if (oldLines[0] !== undefined) {
     fullString = oldLines[0];
     $("#preview-full").text(fullString);
@@ -13,11 +13,11 @@ function subStrCustom() {
 }
 //generate Substring - delete X characters from start and Y from the end
 function subStr() {
-var x = $("#prefix").val();
-var y = $("#suffix").val();
-var endString = fullString.split("").reverse().join("").substr(y,fullString.length).split("").reverse().join("");
-subString = endString.substr(x,endString.length);
-$("#preview").text(subString);
+  var x = $("#prefix").val();
+  var y = $("#suffix").val();
+  var endString = fullString.split("").reverse().join("").substr(y, fullString.length).split("").reverse().join("");
+  subString = endString.substr(x, endString.length);
+  $("#preview").text(subString);
 }
 $('#oldUrl').change(subStrCustom);
 $("#prefix").keyup(subStr);
@@ -31,34 +31,37 @@ $("#proceed").click(function() {
   var download = $("#download").val();
 
   // read Old URLs and line by line save them as an object
-  var oldLines =  $('#oldUrl').val().split(/\n/);
-  for (var i = 0; i < oldLines.length; i++){
+  var oldLines = $('#oldUrl').val().split(/\n/);
+  for (var i = 0; i < oldLines.length; i++) {
     //save the substring of each URL
     var x = $("#prefix").val();
     var y = $("#suffix").val();
-    var endString = oldLines[i].split("").reverse().join("").substr(y,oldLines[i].length).split("").reverse().join("");
-    var subStringEach = endString.substr(x,endString.length);
-    var subStringEachNoDash = subStringEach.replace(/[^a-z0-9]/g,'');
+    var endString = oldLines[i].split("").reverse().join("").substr(y, oldLines[i].length).split("").reverse().join("");
+    var subStringEach = endString.substr(x, endString.length);
+    var subStringEachNoDash = subStringEach.replace(/[^a-z0-9]/g, '');
 
     // read New URLs and line by line save them as an object
-    var newLines =  $('#newUrl').val().split(/\n/);
+    var newLines = $('#newUrl').val().split(/\n/);
     var newUrlResult = [];
 
-    for (var j = 0; j < newLines.length; j++){
+    for (var j = 0; j < newLines.length; j++) {
       var newUrlString = newLines[j];
-      var newUrlStringNoDash = newUrlString.replace(/[^a-z0-9]/g,'');
+      var newUrlStringNoDash = newUrlString.replace(/[^a-z0-9]/g, '');
 
       var isThere = newUrlStringNoDash.search(subStringEachNoDash);
-      if (isThere !== -1 ) {
+      if (isThere !== -1) {
         newUrlResult[i] = newLines[j];
         break;
-      }
-      else {
+      } else {
         newUrlResult[i] = "";
       }
     }
 
-    stockData.push({OldURL:oldLines[i],SearchSubstring:subStringEach,NewURL:newUrlResult[i]});
+    stockData.push({
+      OldURL: oldLines[i],
+      SearchSubstring: subStringEach,
+      NewURL: newUrlResult[i]
+    });
   }
 
   // Enable download button
