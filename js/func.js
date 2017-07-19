@@ -1,6 +1,6 @@
 var fullString = "http://www.domain.com/contact.html";
 var subString = "";
-var stockData = [];
+var redirectData = [];
 
 //if there are already pasted Old URLs, show the hint with first URL
 function subStrCustom() {
@@ -9,21 +9,26 @@ function subStrCustom() {
     fullString = oldLines[0];
     $("#preview-full").text(fullString);
   }
+  if (fullString == ""){
+    fullString = "http://www.domain.com/contact.html";
+    $("#preview-full").text(fullString);
+  }
   subStr();
 }
 //generate Substring - delete X characters from start and Y from the end
 function subStr() {
   var x = $("#prefix").val();
   var y = $("#suffix").val();
-  var endString = fullString.split("").reverse().join("").substr(y, fullString.length).split("").reverse().join("");
-  subString = endString.substr(x, endString.length);
+  var z = fullString.length - x - y;
+  var subString = fullString.substr(x, z);
   $("#preview").text(subString);
 }
+
 $('#oldUrl').change(subStrCustom);
 $("#prefix").keyup(subStr);
 $("#suffix").keyup(subStr);
 
-// On click...
+// Run the search / pairing on button click
 $("#proceed").click(function() {
   event.preventDefault();
   // read input values
@@ -36,9 +41,9 @@ $("#proceed").click(function() {
     //save the substring of each URL
     var x = $("#prefix").val();
     var y = $("#suffix").val();
-    var endString = oldLines[i].split("").reverse().join("").substr(y, oldLines[i].length).split("").reverse().join("");
-    var subStringEach = endString.substr(x, endString.length);
-    var subStringEachNoDash = subStringEach.replace(/[^a-z0-9]/g, '');
+    var z = oldLines[i].length - x - y;
+    var subString = oldLines[i].substr(x, z);
+    var subStringNoDash = subString.replace(/[^a-z0-9]/g, '');
 
     // read New URLs and line by line save them as an object
     var newLines = $('#newUrl').val().split(/\n/);
@@ -48,7 +53,7 @@ $("#proceed").click(function() {
       var newUrlString = newLines[j];
       var newUrlStringNoDash = newUrlString.replace(/[^a-z0-9]/g, '');
 
-      var isThere = newUrlStringNoDash.search(subStringEachNoDash);
+      var isThere = newUrlStringNoDash.search(subStringNoDash);
       if (isThere !== -1) {
         newUrlResult[i] = newLines[j];
         break;
@@ -57,10 +62,10 @@ $("#proceed").click(function() {
       }
     }
 
-    stockData.push({
+    redirectData.push({
       OldURL: oldLines[i],
-      SearchSubstring: subStringEach,
-      NewURL: newUrlResult[i]
+      NewURL: newUrlResult[i],
+      SearchSubstring: subString
     });
   }
 
@@ -108,7 +113,7 @@ function downloadCSV(args) {
   var data, filename, link;
 
   var csv = convertArrayOfObjectsToCSV({
-    data: stockData
+    data: redirectData
   });
   if (csv == null) return;
 
