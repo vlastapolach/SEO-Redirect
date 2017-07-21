@@ -2,7 +2,7 @@
 
 ### https://vlastapolach.github.io/SEO-Redirect/
 
-## 1) When you want to use this?
+## 1) When do you want to use this?
 When you are migrating to the new version of your website and you will have another URLs, it is best practice to redirect (301) old URLs to new URLs to keep the search engines postitions.
 
 ## 2) What exactly it does?
