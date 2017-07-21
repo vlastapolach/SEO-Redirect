@@ -21,7 +21,15 @@ footer {
 	padding-top: 10px;
 }
 #preview{
-	color: #111;
+	color: #C7254E;
+}
+code a {
+	color: #C7254E;
+	text-decoration: none;
+}
+code a:hover {
+	color: #C7254E;
+	text-decoration: none;
 }
 
 

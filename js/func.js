@@ -129,3 +129,8 @@ function downloadCSV(args) {
   link.setAttribute('download', filename);
   link.click();
 }
+
+// Tooltip vyskakující na hover
+$(document).ready(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});
