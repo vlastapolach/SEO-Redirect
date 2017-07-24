@@ -9,7 +9,7 @@ function subStrCustom() {
     fullString = oldLines[0];
     $("#preview-full").text(fullString);
   }
-  if (fullString == ""){
+  if (fullString == "") {
     fullString = "http://www.domain.com/contact.html";
     $("#preview-full").text(fullString);
   }
@@ -71,7 +71,11 @@ $("#proceed").click(function() {
 
   // Enable download button
   $("#download").removeClass("disabled");
+  $("#download").removeClass("btn-danger");
+  $("#download").addClass("btn-primary");
+  // Disable proceed button
   $("#proceed").addClass("disabled");
+  $("#proceed").addClass("btn-danger");
 });
 
 /* Download as CSV script from https://halistechnology.com/2015/05/28/use-javascript-to-export-your-data-as-csv/ */
@@ -130,7 +134,7 @@ function downloadCSV(args) {
   link.click();
 }
 
-// Tooltip vyskakující na hover
+// On-hover tooltip
 $(document).ready(function() {
   $('[data-toggle="tooltip"]').tooltip();
 });

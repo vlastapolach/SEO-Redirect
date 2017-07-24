@@ -53,8 +53,8 @@
         </div>
         <div class="col-md-12">
           <h1>3) How to make it work?</h1>
-          <p>Once you copy/pasted URLs you need to select which part of it will be used as string for searching and pairing with new URL. Type in how many characters at the start of the URL will be taken off (ie. <code>http://www.domain.com/</code> = 22) and how many
-            from the end (ie. <code>.html</code> = 5)</p>
+          <p>Once you copy/pasted URLs you need to select which part of it will be used as string for searching and pairing with new URL. Type in how many characters at the start of the URL will be taken off (ie. <code>http://www.domain.com/</code> = 22)
+            and how many from the end (ie. <code>.html</code> = 5)</p>
           <form class="form-inline">
             <div class="form-group">
               <label for="email">Prefix:</label>
@@ -69,10 +69,9 @@
             </p>
           </form>
           <h1>4) Finished. Now what?</h1>
-          <p> When completed, you can download CSV with Old - New URL pairs. Where empty, exact pair was not found. You will have to assign it manually. But most of them will be done automatically. When you complete the list, you can use <code> <a data-toggle="tooltip" data-placement="bottom" title="Redirect 301 http://www.domain.com/contact.html https://www.new-domain.com/contact">.htaccess</a></code> or <a href="https://www.elegantthemes.com/blog/resources/turn-around-the-7-best-redirect-plugins-for-wordpress"
-              target="_blank">some Redirect plugin</a> to make those rules work.</p>
+          <p> When completed, you can download CSV with Old - New URL pairs. Where empty, exact pair was not found. You will have to assign it manually. But most of them will be done automatically. When you complete the list, you can use <code> <a data-toggle="tooltip" data-placement="bottom" title="Redirect 301 http://www.domain.com/contact.html https://www.new-domain.com/contact">.htaccess</a></code>            or <a href="https://www.elegantthemes.com/blog/resources/turn-around-the-7-best-redirect-plugins-for-wordpress" target="_blank">some Redirect plugin</a> to make those rules work.</p>
           <div class="download-button">
-            <a href='#' onclick='downloadCSV({ filename: "stock-data.csv" });' class="btn btn-lg btn-primary disabled" id="download">Download CSV</a>
+            <a href='#' onclick='downloadCSV({ filename: "redirect-export.csv" });' class="btn btn-lg btn-danger disabled" id="download">Download CSV</a>
           </div>
         </div>
       </div>
