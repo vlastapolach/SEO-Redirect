@@ -1,6 +1,8 @@
 var fullString = "http://www.domain.com/contact.html";
 var subString = "";
 var redirectData = [];
+var oldVal = "";
+var newVal = "";
 
 //if there are already pasted Old URLs, show the hint with first URL
 function subStrCustom() {
@@ -24,9 +26,21 @@ function subStr() {
   $("#preview").text(subString);
 }
 
+function enableBtn() {
+  oldVal = $('#oldUrl').val();
+  newVal = $('#newUrl').val();
+  if (oldVal !== "" && newVal !== "") {
+    $("#proceed").removeClass("disabled");
+    $("#proceed").removeClass("btn-danger");
+    $("#proceed").addClass("btn-primary");
+  }
+}
+
 $('#oldUrl').change(subStrCustom);
 $("#prefix").keyup(subStr);
 $("#suffix").keyup(subStr);
+$('#oldUrl').keyup(enableBtn);
+$('#newUrl').keyup(enableBtn);
 
 // Run the search / pairing on button click
 $("#proceed").click(function() {
