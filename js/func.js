@@ -33,6 +33,10 @@ function enableBtn() {
     $("#proceed").removeClass("disabled");
     $("#proceed").removeClass("btn-danger");
     $("#proceed").addClass("btn-primary");
+  } else {
+    $("#proceed").addClass("disabled");
+    $("#proceed").removeClass("btn-primary");
+    $("#proceed").addClass("btn-danger");
   }
 }
 
@@ -45,51 +49,57 @@ $('#newUrl').keyup(enableBtn);
 // Run the search / pairing on button click
 $("#proceed").click(function() {
   event.preventDefault();
-  // read input values
-  var newUrl = $("#newUrl").val();
-  var download = $("#download").val();
 
-  // read Old URLs and line by line save them as an object
-  var oldLines = $('#oldUrl').val().split(/\n/);
-  for (var i = 0; i < oldLines.length; i++) {
-    //save the substring of each URL
-    var x = $("#prefix").val();
-    var y = $("#suffix").val();
-    var z = oldLines[i].length - x - y;
-    var subString = oldLines[i].substr(x, z);
-    var subStringNoDash = subString.replace(/[^a-z0-9]/g, '');
+  if ($("#proceed").hasClass("disabled")) {
+    console.log("Not possible - fill in Old URLs and New URLs.")
+  } else {
 
-    // read New URLs and line by line save them as an object
-    var newLines = $('#newUrl').val().split(/\n/);
-    var newUrlResult = [];
+    // read input values
+    var newUrl = $("#newUrl").val();
+    var download = $("#download").val();
 
-    for (var j = 0; j < newLines.length; j++) {
-      var newUrlString = newLines[j];
-      var newUrlStringNoDash = newUrlString.replace(/[^a-z0-9]/g, '');
+    // read Old URLs and line by line save them as an object
+    var oldLines = $('#oldUrl').val().split(/\n/);
+    for (var i = 0; i < oldLines.length; i++) {
+      //save the substring of each URL
+      var x = $("#prefix").val();
+      var y = $("#suffix").val();
+      var z = oldLines[i].length - x - y;
+      var subString = oldLines[i].substr(x, z);
+      var subStringNoDash = subString.replace(/[^a-z0-9]/g, '');
 
-      var isThere = newUrlStringNoDash.search(subStringNoDash);
-      if (isThere !== -1) {
-        newUrlResult[i] = newLines[j];
-        break;
-      } else {
-        newUrlResult[i] = "";
+      // read New URLs and line by line save them as an object
+      var newLines = $('#newUrl').val().split(/\n/);
+      var newUrlResult = [];
+
+      for (var j = 0; j < newLines.length; j++) {
+        var newUrlString = newLines[j];
+        var newUrlStringNoDash = newUrlString.replace(/[^a-z0-9]/g, '');
+
+        var isThere = newUrlStringNoDash.search(subStringNoDash);
+        if (isThere !== -1) {
+          newUrlResult[i] = newLines[j];
+          break;
+        } else {
+          newUrlResult[i] = "";
+        }
       }
+
+      redirectData.push({
+        OldURL: oldLines[i],
+        NewURL: newUrlResult[i],
+        SearchSubstring: subString
+      });
     }
 
-    redirectData.push({
-      OldURL: oldLines[i],
-      NewURL: newUrlResult[i],
-      SearchSubstring: subString
-    });
+    // Enable download button
+    $("#download").removeClass("disabled");
+    $("#download").removeClass("btn-danger");
+    $("#download").addClass("btn-primary");
+    // Disable proceed button
+    $("#proceed").addClass("disabled");
+    $("#proceed").addClass("btn-danger");
   }
-
-  // Enable download button
-  $("#download").removeClass("disabled");
-  $("#download").removeClass("btn-danger");
-  $("#download").addClass("btn-primary");
-  // Disable proceed button
-  $("#proceed").addClass("disabled");
-  $("#proceed").addClass("btn-danger");
 });
 
 /* Download as CSV script from https://halistechnology.com/2015/05/28/use-javascript-to-export-your-data-as-csv/ */
