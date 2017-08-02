@@ -12,6 +12,6 @@ You need list of URLs from your old and your new website. On Wordpress, you can 
 Once you copy/pasted URLs, you need to select, which part of it will be used as string for searching and pairing with new URL. Type in, how many characters at the start of the URL will be taken off (ie. `http://www.domain.com/` = 22) and how many from the end (ie. `.html` = 5)
 
 ## 4) Finished. Now what?
-When completed, you can download CSV with Old - New URL pairs. Where empty, exact pair was not found. You will have to assign it manually. But most of them will be done automatically. When you complete the list, you can use `.htaccess` or [some Redirect plugin](https://www.elegantthemes.com/blog/resources/turn-around-the-7-best-redirect-plugins-for-wordpress) to make those rules work.
+When completed, you can download CSV with Old - New URL pairs. Where empty, exact pair was not found. You will have to assign it manually. But most of them will be done automatically. When you complete the list, you can use `.htaccess` or [Redirection plugin for Wordpress](https://wordpress.org/plugins/redirection/) (on the "Options" tab is the import from CSV file) to make those rules work.
 
 Live on: https://vlastapolach.github.io/SEO-Redirect/
