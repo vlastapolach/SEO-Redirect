@@ -6,7 +6,7 @@ var newVal = "";
 
 //if there are already pasted Old URLs, show the hint with first URL
 function subStrCustom() {
-  var oldLines = $('#oldUrl').val().split(/\n/);
+  var oldLines = $("#oldUrl").val().split(/\n/);
   if (oldLines[0] !== undefined) {
     fullString = oldLines[0];
     $("#preview-full").text(fullString);
@@ -27,8 +27,8 @@ function subStr() {
 }
 
 function enableBtn() {
-  oldVal = $('#oldUrl').val();
-  newVal = $('#newUrl').val();
+  oldVal = $("#oldUrl").val();
+  newVal = $("#newUrl").val();
   if (oldVal !== "" && newVal !== "") {
     $("#proceed").removeClass("disabled");
     $("#proceed").removeClass("btn-danger");
@@ -40,41 +40,40 @@ function enableBtn() {
   }
 }
 
-$('#oldUrl').change(subStrCustom);
+$("#oldUrl").change(subStrCustom);
 $("#prefix").keyup(subStr);
 $("#suffix").keyup(subStr);
-$('#oldUrl').keyup(enableBtn);
-$('#newUrl').keyup(enableBtn);
+$("#oldUrl").keyup(enableBtn);
+$("#newUrl").keyup(enableBtn);
 
 // Run the search / pairing on button click
 $("#proceed").click(function() {
   event.preventDefault();
 
   if ($("#proceed").hasClass("disabled")) {
-    console.log("Not possible - fill in Old URLs and New URLs.")
+    console.log("Not possible - fill in Old URLs and New URLs.");
   } else {
-
     // read input values
     var newUrl = $("#newUrl").val();
     var download = $("#download").val();
 
     // read Old URLs and line by line save them as an object
-    var oldLines = $('#oldUrl').val().split(/\n/);
+    var oldLines = $("#oldUrl").val().split(/\n/);
     for (var i = 0; i < oldLines.length; i++) {
       //save the substring of each URL
       var x = $("#prefix").val();
       var y = $("#suffix").val();
       var z = oldLines[i].length - x - y;
       var subString = oldLines[i].substr(x, z);
-      var subStringNoDash = subString.replace(/[^a-z0-9]/g, '');
+      var subStringNoDash = subString.replace(/[^a-z0-9]/g, "");
 
       // read New URLs and line by line save them as an object
-      var newLines = $('#newUrl').val().split(/\n/);
+      var newLines = $("#newUrl").val().split(/\n/);
       var newUrlResult = [];
 
       for (var j = 0; j < newLines.length; j++) {
         var newUrlString = newLines[j];
-        var newUrlStringNoDash = newUrlString.replace(/[^a-z0-9]/g, '');
+        var newUrlStringNoDash = newUrlString.replace(/[^a-z0-9]/g, "");
 
         var isThere = newUrlStringNoDash.search(subStringNoDash);
         if (isThere !== -1) {
@@ -113,12 +112,12 @@ function convertArrayOfObjectsToCSV(args) {
     return null;
   }
 
-  columnDelimiter = args.columnDelimiter || ',';
-  lineDelimiter = args.lineDelimiter || '\n';
+  columnDelimiter = args.columnDelimiter || ",";
+  lineDelimiter = args.lineDelimiter || "\n";
 
   keys = Object.keys(data[0]);
 
-  result = '';
+  result = "";
   result += keys.join(columnDelimiter);
   result += lineDelimiter;
 
@@ -145,16 +144,16 @@ function downloadCSV(args) {
   });
   if (csv == null) return;
 
-  filename = 'redirect-export.csv';
+  filename = "redirect-export.csv";
 
   if (!csv.match(/^data:text\/csv/i)) {
-    csv = 'data:text/csv;charset=utf-8,' + csv;
+    csv = "data:text/csv;charset=utf-8," + csv;
   }
   data = encodeURI(csv);
 
-  link = document.createElement('a');
-  link.setAttribute('href', data);
-  link.setAttribute('download', filename);
+  link = document.createElement("a");
+  link.setAttribute("href", data);
+  link.setAttribute("download", filename);
   link.click();
 }
 
@@ -162,3 +161,7 @@ function downloadCSV(args) {
 $(document).ready(function() {
   $('[data-toggle="tooltip"]').tooltip();
 });
+
+// Print actual year into the footer
+var year = new Date();
+$(".foot-link").text(year.getFullYear());
