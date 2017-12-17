@@ -47,7 +47,7 @@ $("#oldUrl").keyup(enableBtn);
 $("#newUrl").keyup(enableBtn);
 
 // Run the search / pairing on button click
-$("#proceed").click(function() {
+$("#proceed").click(function(event) {
   event.preventDefault();
 
   if ($("#proceed").hasClass("disabled")) {
